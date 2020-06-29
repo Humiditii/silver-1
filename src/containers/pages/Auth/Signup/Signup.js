@@ -49,6 +49,8 @@ class Signup extends Component {
                 <div align='center' style={{marginBottom: '30px'}} >
                    <h5> <b><u>Signup As a New User</u> </b></h5>
                 </div>
+                <h5 align='center' style={{color: 'red', fontSize: '19px'}} >{this.props.error}</h5>
+                <h5 align='center' style={{color: 'red', fontSize: '19px'}} >{this.props.mismatch}</h5>
                 <form className="col s12" onSubmit={this.onSubmitHandler} >
                             
                             {config.name.map( (item, index) => (
@@ -80,7 +82,9 @@ class Signup extends Component {
 const mapStateToProps = state => {
     return {
         token: state.auth.token,
-        loading: state.auth.loading
+        loading: state.auth.loading,
+        error: state.auth.error,
+        mismatch : state.auth.mismatch
     }
 }
 

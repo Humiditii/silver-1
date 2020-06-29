@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import Aux from '../../../hoc/Auxillary';
 import Button from '../../../components/Button/Button';
+import {connect} from 'react-redux';
+import {checkAuthState} from '../../../store/actions/auth';
 
 
 class ViewProducts extends Component {
+
+    componentDidMount(){
+        this.props.onAutoSignIn()
+    }
 
     onClickHandler = (event) => {
         event.preventDefault();
@@ -55,4 +61,16 @@ class ViewProducts extends Component {
 }
 
 
-export default ViewProducts;
+const mapStateToProps = state => {
+    return {
+        token: state.auth.token
+    }
+}
+
+const mapPropsToState = dispatch => {
+    return {
+        onAutoSignIn: () => { dispatch(checkAuthState()) }
+    }
+}
+
+export default connect(mapStateToProps, mapPropsToState)(ViewProducts);

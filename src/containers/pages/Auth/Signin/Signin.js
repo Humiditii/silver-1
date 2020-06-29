@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import Button from '../../../../components/Button/Button';
 import Input from '../../../../components/Input/Input';
 import Aux from '../../../../hoc/Auxillary';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
+import {signin} from '../../../../store/actions/auth';
+import Preloader from '../../../../components/Preloader/Preloader';
+import { connect } from 'react-redux';
 
 class Signin extends Component {
     state = {
@@ -10,9 +13,14 @@ class Signin extends Component {
         password: null
     }
 
+    // componentDidMount(){
+    //     console.log(this.props)
+    // }
 
     onSubmitHandler = (event) => {
         event.preventDefault()
+        const {businessName, password} = this.state;
+        this.props.onSignIn(businessName, password)
 
     }
 
@@ -35,8 +43,9 @@ class Signin extends Component {
         let form = (
             <div style={{marginTop: '40px'}} >
                 <div align='center' style={{marginBottom: '30px'}} >
-                    <h5><u>Login To Your Account</u></h5>  <i class="large material-icons">account_circle</i>
+                    <h5><u>Login To Your Account</u></h5>  <i className="large material-icons">account_circle</i>
                 </div>
+                    <h5 align='center' style={{color: 'red', fontSize: '19px'}} >{this.props.error}</h5>
                 <form className="col s12" onSubmit={this.onSubmitHandler} >
                             
                             {config.name.map( (item, index) => (
@@ -52,6 +61,15 @@ class Signin extends Component {
                         </form>
             </div>
         );
+
+        if(this.props.token){
+            this.props.history.push('/view-products')
+            return <Redirect to='/view-products' />
+        }
+        if(this.props.loading){
+            form = <Preloader />
+        }
+
         return (
             <Aux>
                 {form}
@@ -60,5 +78,18 @@ class Signin extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        token: state.auth.token,
+        error: state.auth.error,
+        loading: state.auth.loading
+    }
+}
 
-export default Signin;
+const mapDispatchToProps = dispatch => {
+    return {
+        onSignIn: (businessName, password) => { dispatch(signin(businessName,password)) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signin);

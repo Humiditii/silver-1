@@ -57,6 +57,13 @@ const password_mismatch = (state, action) => {
     }
 }
 
+const logout = (state, action) => {
+    return {
+        ...state,
+        token: null
+    }
+}
+
 const reducer = (state=initialState, action) => {
     switch( action.type ){
         case actionTypes.INIT_AUTH_START : return auth_init(state, action);
@@ -65,6 +72,7 @@ const reducer = (state=initialState, action) => {
         case actionTypes.SIGNUP_FAIL: return signup_fail(state, action);
         case actionTypes.SIGNUP_SUCCESS: return signup_success(state, action);
         case actionTypes.PASSWORD_MISMATCH: return password_mismatch(state, action);
+        case actionTypes.AUTH_LOGOUT : return logout(state, action)
         default:
             return state;
     }
