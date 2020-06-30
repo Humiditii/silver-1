@@ -60,7 +60,7 @@ export const signin = (businessName, password) => {
         axios.post(endpoint, body, config).then(response => {
 
             const expiresIn = 3600 * 24* 1000;
-            const expirationDate =new Date(new Date().getTime() + expiresIn);
+            const expirationDate = new Date(new Date().getTime() + expiresIn);
 
             localStorage.setItem('expirationDate', expirationDate)
             localStorage.setItem('token', response.data.token)
@@ -68,7 +68,7 @@ export const signin = (businessName, password) => {
             dispatch(signin_success(response.data.token, response.data.message))
 
         }).catch(err => {
-            dispatch(signin_fail(err.message))
+            dispatch(signin_fail(err.response.data.message))
         })
     }
 }
@@ -133,7 +133,7 @@ export const checkAuthState = () => {
                 dispatch(logout());
                 //console.log('Second logout excecuted');
             }else{
-               dispatch(signin_success(token))
+               dispatch(signin_success(token, 'Logged before'))
                 //dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime())/1000));
                 dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) ));
                 //console.log((expirationDate.getTime() - new Date().getTime()) / 1000);

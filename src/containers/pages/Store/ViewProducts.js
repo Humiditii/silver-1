@@ -3,12 +3,25 @@ import Aux from '../../../hoc/Auxillary';
 import Button from '../../../components/Button/Button';
 import {connect} from 'react-redux';
 import {checkAuthState} from '../../../store/actions/auth';
+import {store_details} from '../../../store/actions/store';
+import { Redirect } from 'react-router-dom';
 
 
 class ViewProducts extends Component {
 
     componentDidMount(){
         this.props.onAutoSignIn()
+        // const token = localStorage.getItem('token')
+        if(this.props.token){
+            this.props.onMount(this.props.token)
+            //console.log(this.props.token)
+        }
+        
+    }
+
+    inputHandler = (event, item ) => {
+        event.preventDefault();
+        alert(item)
     }
 
     onClickHandler = (event) => {
@@ -17,6 +30,18 @@ class ViewProducts extends Component {
     }
 
     render(){
+        if(!this.props.token){
+            return <Redirect to='/login' />
+        }
+
+        let amount = '0'
+
+        if(this.props.details.length > 0){
+
+            amount = this.props.details.map( item => item.totalPrice).reduce((a,b) => a +b , 0 )
+        }
+    
+
         return (
             <Aux>
                 <div style={{fontSize:'15px'}} >
@@ -36,24 +61,26 @@ class ViewProducts extends Component {
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>Coster</td>
-                                    <td>20</td>
-                                    <td>$7.00</td>
-                                    <td>140</td>
-                                    <td onClick={this.onClickHandler} ><Button  floatBtn=' btn-floating' btncolour='indigo' btnname='Edit'  iconname='edit'  /></td>
-                                </tr>
-                                <tr>
-                                    <td>Loly</td>
-                                    <td>20</td>
-                                    <td>$7.00</td>
-                                    <td>140</td>
-                                    <td><Button floatBtn=' btn-floating'  btncolour='indigo' btnname='Edit'  iconname='edit'  /></td>
-                                </tr>
+                                
+                              
+                                 {this.props.details.length > 0 ? this.props.details.map( (item, index)=> (
+                                   <Aux key ={index}>
+                                        <tr>
+                                        <td>{item.name}</td>
+                                        <td>{item.quantity}</td>
+                                        <td>₦{item.price}</td>
+                                        <td>₦{item.totalPrice}</td>
+                                        <td onClick={(event) =>  this.inputHandler(event, item._id) } ><Button  floatBtn=' btn-floating' btncolour='indigo' btnname='Edit'  iconname='edit'  /></td>
+                                    </tr>
+                                   </Aux>
+                                ) ) : null}
+                                
+                                 
                             </tbody>
                         </table>
+                        <h5 align='center' >{this.props.error}</h5>
                     </div>
-                    <h5 align='center' style={{fontSize: '19px', paddingTop: '40px'}} >Total Price : 30,000</h5>
+                    <h5 align='center' style={{fontSize: '19px', paddingTop: '40px'}}> Total Price : ₦{amount} </h5>
                 </div>
             </Aux>
         )
@@ -63,14 +90,17 @@ class ViewProducts extends Component {
 
 const mapStateToProps = state => {
     return {
-        token: state.auth.token
+        token: state.auth.token,
+        details: state.cart.details,
+        error: state.cart.error
     }
 }
 
-const mapPropsToState = dispatch => {
+const mapDispatchToProps = dispatch => {
     return {
-        onAutoSignIn: () => { dispatch(checkAuthState()) }
+        onAutoSignIn: () => { dispatch(checkAuthState()) },
+        onMount: (token) => { dispatch(store_details(token)) }
     }
 }
 
-export default connect(mapStateToProps, mapPropsToState)(ViewProducts);
+export default connect(mapStateToProps, mapDispatchToProps)(ViewProducts);

@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 import Aux from '../../../hoc/Auxillary';
+import {connect} from 'react-redux';
 import Button from '../../../components/Button/Button';
 import Input from '../../../components/Input/Input';
+import Preloader from '../../../components/Preloader/Preloader';
+import {checkAuthState} from '../../../store/actions/auth';
+import {add_product} from '../../../store/actions/store';
+import { Redirect } from 'react-router-dom';
 
 
 class AddProduct extends Component {
+    componentDidMount(){
+        this.props.onAutoSignin()
+        console.log(this.props.token)
+        this.props.history.replace('/add-product')
+    }
+
     state = {
         productName: null,
         quantity: null, 
@@ -14,7 +25,8 @@ class AddProduct extends Component {
 
     onSubmitHandler = (event) => {
         event.preventDefault()
-
+        const {productName, quantity, price} = this.state;
+        this.props.onAddProduct(this.props.token,productName,price,quantity)
     }
 
 
@@ -37,6 +49,9 @@ class AddProduct extends Component {
                 <div align='center'  >
                     <h5>Add Product</h5>
                 </div>
+                <div align='center' style={{color: 'green'}}>
+                    <h5>{this.props.successMessage}</h5>
+                </div>
                 <form className="col s12" onSubmit={this.onSubmitHandler} >
                             
                             {config.name.map( (item, index) => (
@@ -49,10 +64,17 @@ class AddProduct extends Component {
                 </form>
             </div>
         );
+
+        if(!this.props.token){
+            return <Redirect to='/login' />
+        }
+
+        if(this.props.adding){
+            form = <Preloader />
+        }
         return (
             <Aux>
                 <div>
-                   
                     {form}
                 </div>
             </Aux>
@@ -60,5 +82,20 @@ class AddProduct extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        token: state.auth.token,
+        adding: state.cart.adding,
+        successMessage: state.cart.successMessage
+    }
+}
 
-export default AddProduct;
+const mapDispatchToProps = dispatch => {
+
+    return {
+        onAutoSignin: () => { dispatch(checkAuthState()) },
+        onAddProduct: (token, name, price, quantity) => {dispatch (add_product(token, name, price, quantity)) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddProduct);

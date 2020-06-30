@@ -60,7 +60,8 @@ const password_mismatch = (state, action) => {
 const logout = (state, action) => {
     return {
         ...state,
-        token: null
+        token: null,
+        authMsg:null
     }
 }
 

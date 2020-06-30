@@ -46,6 +46,7 @@ class Signin extends Component {
                     <h5><u>Login To Your Account</u></h5>  <i className="large material-icons">account_circle</i>
                 </div>
                     <h5 align='center' style={{color: 'red', fontSize: '19px'}} >{this.props.error}</h5>
+                    <h5 align='center' style={{color: 'red', fontSize: '19px'}} >{this.props.authMsg}</h5>
                 <form className="col s12" onSubmit={this.onSubmitHandler} >
                             
                             {config.name.map( (item, index) => (
@@ -63,7 +64,7 @@ class Signin extends Component {
         );
 
         if(this.props.token){
-            this.props.history.push('/view-products')
+            
             return <Redirect to='/view-products' />
         }
         if(this.props.loading){
@@ -82,7 +83,8 @@ const mapStateToProps = state => {
     return {
         token: state.auth.token,
         error: state.auth.error,
-        loading: state.auth.loading
+        loading: state.auth.loading,
+        authMsg: state.auth.authMsg
     }
 }
 
