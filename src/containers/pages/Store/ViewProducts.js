@@ -3,7 +3,7 @@ import Aux from '../../../hoc/Auxillary';
 import Button from '../../../components/Button/Button';
 import {connect} from 'react-redux';
 import {checkAuthState} from '../../../store/actions/auth';
-import {store_details} from '../../../store/actions/store';
+import {store_details, get_edit_params} from '../../../store/actions/store';
 import { Redirect } from 'react-router-dom';
 
 
@@ -19,9 +19,11 @@ class ViewProducts extends Component {
         
     }
 
-    inputHandler = (event, item ) => {
+    inputHandler = (event, id, quantity, price) => {
         event.preventDefault();
-        alert(item)
+        this.props.onGotoEdit(quantity, price, id)
+        return <Redirect to ='/edit-product' />
+        
     }
 
     onClickHandler = (event) => {
@@ -41,6 +43,9 @@ class ViewProducts extends Component {
             amount = this.props.details.map( item => item.totalPrice).reduce((a,b) => a +b , 0 )
         }
     
+        if (this.props.editId){
+            return <Redirect to='/edit-product' />
+        }
 
         return (
             <Aux>
@@ -70,7 +75,7 @@ class ViewProducts extends Component {
                                         <td>{item.quantity}</td>
                                         <td>₦{item.price}</td>
                                         <td>₦{item.totalPrice}</td>
-                                        <td onClick={(event) =>  this.inputHandler(event, item._id) } ><Button  floatBtn=' btn-floating' btncolour='indigo' btnname='Edit'  iconname='edit'  /></td>
+                                        <td onClick={(event) =>  this.inputHandler(event, item._id, item.quantity, item.price) } ><Button  floatBtn=' btn-floating' btncolour='indigo' btnname='Edit'  iconname='edit'  /></td>
                                     </tr>
                                    </Aux>
                                 ) ) : null}
@@ -88,18 +93,21 @@ class ViewProducts extends Component {
 }
 
 
+
 const mapStateToProps = state => {
     return {
         token: state.auth.token,
         details: state.cart.details,
-        error: state.cart.error
+        error: state.cart.error,
+        editId: state.cart.editParams.productId
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         onAutoSignIn: () => { dispatch(checkAuthState()) },
-        onMount: (token) => { dispatch(store_details(token)) }
+        onMount: (token) => { dispatch(store_details(token)) },
+        onGotoEdit: (quantity, price, productId) => { dispatch( get_edit_params(quantity, price, productId) ) }
     }
 }
 
