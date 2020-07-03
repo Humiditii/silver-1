@@ -65,6 +65,10 @@ class EditProduct extends Component {
                             <Button action='submit' btncolour='indigo' btnname='Edit Product'  iconname='storage'  />
                         </div>
                 </form>
+
+                <div align='center' style={{marginTop: '50px'}}>
+                    <Button btncolour='indigo' btnname='View Store' actionType='link' iconname='directions_bike' whereto='/view-products' />
+                </div>
             </div>
         );
 

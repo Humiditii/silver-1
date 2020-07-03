@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {checkAuthState} from '../../../store/actions/auth';
 import {store_details, get_edit_params} from '../../../store/actions/store';
 import { Redirect } from 'react-router-dom';
+import Preloader from '../../../components/Preloader/Preloader';
 
 
 class ViewProducts extends Component {
@@ -22,14 +23,13 @@ class ViewProducts extends Component {
     inputHandler = (event, id, quantity, price) => {
         event.preventDefault();
         this.props.onGotoEdit(quantity, price, id)
-        return <Redirect to ='/edit-product' />
         
     }
 
-    onClickHandler = (event) => {
-        event.preventDefault();
-        alert('I was clicked')
-    }
+    // onClickHandler = (event) => {
+    //     event.preventDefault();
+    //     alert('I was clicked')
+    // }
 
     render(){
         if(!this.props.token){
@@ -47,9 +47,8 @@ class ViewProducts extends Component {
             return <Redirect to='/edit-product' />
         }
 
-        return (
-            <Aux>
-                <div style={{fontSize:'15px'}} >
+        let viewProductBody = (
+            <div style={{fontSize:'15px'}} >
                     <div align='center' >
                         <h5>List Of Products</h5>
                     </div>
@@ -86,7 +85,23 @@ class ViewProducts extends Component {
                         <h5 align='center' >{this.props.error}</h5>
                     </div>
                     <h5 align='center' style={{fontSize: '19px', paddingTop: '40px'}}> Total Price : ₦{amount} </h5>
+
+                    <div align='center' style={{marginTop: '30px', marginBottom: '30px'}}>
+                        <Button btncolour='indigo' btnname='Add Product' actionType='link' iconname='directions_bike' whereto='/add-product' />
+                    </div>
+
+                    <div align='center' tyle={{marginTop: '30px'}} >
+                        <Button btncolour='indigo' btnname='Sell Now' actionType='link' iconname='directions_bike' whereto='/new-sale' />
+                    </div>
                 </div>
+        );
+
+        if(this.props.adding){
+            viewProductBody = <Preloader />
+        }
+        return (
+            <Aux>
+                {viewProductBody}
             </Aux>
         )
     }
@@ -99,6 +114,7 @@ const mapStateToProps = state => {
         token: state.auth.token,
         details: state.cart.details,
         error: state.cart.error,
+        adding: state.cart.adding,
         editId: state.cart.editParams.productId
     }
 }

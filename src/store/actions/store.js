@@ -55,7 +55,7 @@ export const store_details = (token) => {
         } 
         
         axios.get(endpoint, config).then( result=> {
-            console.log(result)
+            //console.log(result)
             dispatch(store_details_success([...result.data.data]))
         }).catch( err => {
            // console.log(err.response.data.message)
