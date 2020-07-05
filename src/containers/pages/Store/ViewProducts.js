@@ -87,11 +87,11 @@ class ViewProducts extends Component {
                     <h5 align='center' style={{fontSize: '19px', paddingTop: '40px'}}> Total Price : ₦{amount} </h5>
 
                     <div align='center' style={{marginTop: '30px', marginBottom: '30px'}}>
-                        <Button btncolour='indigo' btnname='Add Product' actionType='link' iconname='directions_bike' whereto='/add-product' />
+                        <Button btncolour='indigo' btnname='Add Product' actionType='link' iconname='shop' whereto='/add-product' />
                     </div>
 
-                    <div align='center' tyle={{marginTop: '30px'}} >
-                        <Button btncolour='indigo' btnname='Sell Now' actionType='link' iconname='directions_bike' whereto='/new-sale' />
+                    <div align='center' style={{marginTop: '30px',paddingBottom: '30px' }} >
+                        <Button btncolour='indigo' btnname='Sell Now' actionType='link' iconname='storage' whereto='/new-sale' />
                     </div>
                 </div>
         );

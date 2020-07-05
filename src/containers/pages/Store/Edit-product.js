@@ -49,9 +49,13 @@ class EditProduct extends Component {
                 <div align='center'  >
                     <h5>Edit Product</h5>
                 </div>
-                {/* <div align='center' style={{color: 'green'}}>
-                    <h5>{this.props.successMessage}</h5>
-                </div> */}
+                <div align='center' style={{font: '15px',color: 'green'}}>
+                {this.props.updateMessage? <h5><i class="small material-icons">done_all</i>{this.props.updateMessage}</h5> : null }
+                   
+                </div>
+                <div align='center' style={{font: '15px',color: 'red'}}>
+                    <h5>{this.props.error}</h5>
+                </div>
                 <form className="col s12" onSubmit={this.onSubmitHandler} >
                             <div align='center' style={{fontSize: '16px', marginTop: '40px', color: 'green'}} >
                                 <p> <i>Quantity</i>: {this.state.quantity}</p>
@@ -67,7 +71,7 @@ class EditProduct extends Component {
                 </form>
 
                 <div align='center' style={{marginTop: '50px'}}>
-                    <Button btncolour='indigo' btnname='View Store' actionType='link' iconname='directions_bike' whereto='/view-products' />
+                    <Button btncolour='indigo' btnname='View Store' actionType='link' iconname='shop' whereto='/view-products' />
                 </div>
             </div>
         );
@@ -92,7 +96,9 @@ class EditProduct extends Component {
 const mapStateToProps = state => {
     return {
         token: state.auth.token,
-        editParams: state.cart.editParams
+        editParams: state.cart.editParams,
+        updateMessage: state.cart.updateMessage,
+        error: state.cart.error
     }
 }
 

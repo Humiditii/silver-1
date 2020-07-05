@@ -12,7 +12,7 @@ class Footer extends Component {
                     <div className="footer-copyright">
                         <div className="container" align='center'>
 
-                        Developed by Sebago © {new Date().getFullYear()} Copyright
+                        Developed by Sebago <i class="tiny material-icons">copyright</i> {new Date().getFullYear()} Copyright
                         
                         </div>
                     </div>

@@ -30,7 +30,8 @@ const get_sales_failed = (state, action) => {
     return {
         ...state,
         loading: false,
-        error: action.error
+        error: action.error,
+        details: []
     }
 }
 

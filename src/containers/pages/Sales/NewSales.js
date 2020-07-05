@@ -7,6 +7,7 @@ import {get_product_list} from '../../../store/actions/sale';
 import { Redirect } from 'react-router-dom';
 import Button from '../../../components/Button/Button';
 import {sell} from '../../../store/actions/sale';
+import Preloader from '../../../components/Preloader/Preloader';
 
 
 
@@ -37,10 +38,13 @@ class NewSales extends Component {
       if(idNameObject){
         const productId = idNameObject.split('-')[1];
         const productName = idNameObject.split('-')[0];
+        const productQuantity = idNameObject.split('-')[2];
 
-        this.props.iWantToSell(productName, productId, this.state.quantity, this.props.token)
-
-        //alert(productId +' is '+ productName)
+        if(this.state.quantity > productQuantity){
+            return alert('You do not have enough product. Please reduce it or Buy more product');
+        }else{
+            this.props.iWantToSell(productName, productId, this.state.quantity, this.props.token)
+        }
       }else{
           alert('Please Select an Option')
       }
@@ -54,7 +58,9 @@ class NewSales extends Component {
                     <div align='center' style={{borderLeft: '30px'}} >
                         <h5>Sell Products</h5>
                     </div>
-
+                    <div align='center' style={{font: '17px', color: 'green'}} >
+                       {this.props.success?  <p> <i class="small material-icons">done_all</i>{this.props.success}</p> : null }
+                    </div>
                     <div>
                         <form className="col s12" onSubmit={this.onSubmitHandler}>
                             <div className="input-field col s12">
@@ -62,7 +68,7 @@ class NewSales extends Component {
                                 <option defaultValue='Select'>Choose your option</option>
                                  
                                  {this.props.products.map((item, index)=>
-                                         <option value={item[0]+'-'+item[1]} key={index}>{item[0]}</option>
+                                         <option value={item[0]+'-'+item[1]+'-'+item[3]} key={index}>{item[0]}</option>
                                  )}
                                 </select>
                                 
@@ -75,7 +81,7 @@ class NewSales extends Component {
                             </div>
 
                             <div align='center' style={{marginTop: '50px'}}>
-                                <Button btncolour='indigo' btnname='View Store' actionType='link' iconname='directions_bike' whereto='/view-products' />
+                                <Button btncolour='indigo' btnname='View Store' actionType='link' iconname='shop' whereto='/view-products' />
                             </div>
 
                         </form>
@@ -86,6 +92,10 @@ class NewSales extends Component {
 
         if(!this.props.token){
             return <Redirect to='/login' />
+        }
+
+        if(this.props.loading){
+            saleBody = <Preloader />
         }
 
         return(
@@ -99,7 +109,9 @@ class NewSales extends Component {
 const mapStateToProps = state => {
     return {
         token: state.auth.token,
-        products: state.sales.products
+        products: state.sales.products,
+        success: state.sales.success,
+        loading: state.sales.loading
     }
 }
 

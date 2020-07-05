@@ -3,7 +3,9 @@ import {NavLink} from 'react-router-dom';
 
 const navurl = props => {
     return (
-        <li><NavLink to={props.link}>{props.navname}</NavLink></li>
+        <li><NavLink to={props.link}>
+            {props.navname}
+        </NavLink></li>
     );
 }
 

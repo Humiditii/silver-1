@@ -34,6 +34,11 @@ export const get_sales = (token, startDate, endDate) => {
             }
         }
 
+        if (!startDate && !endDate){
+            startDate = 'now';
+            endDate = 'now';
+        }
+
         const endpoint = `/sale/sales/${startDate}/${endDate}`;
 
         axios.get(endpoint, config).then( result => {
