@@ -46,7 +46,7 @@ class Signin extends Component {
                     <h5><u>Login To Your Account</u></h5>  <i className="large material-icons">account_circle</i>
                 </div>
                     <h5 align='center' style={{color: 'red', fontSize: '19px'}} >{this.props.error}</h5>
-                    <h5 align='center' style={{color: 'red', fontSize: '19px'}} >{this.props.authMsg}</h5>
+                  
                 <form className="col s12" onSubmit={this.onSubmitHandler} >
                             
                             {config.name.map( (item, index) => (
@@ -84,7 +84,7 @@ const mapStateToProps = state => {
         token: state.auth.token,
         error: state.auth.error,
         loading: state.auth.loading,
-        authMsg: state.auth.authMsg
+        // authMsg: state.auth.authMsg
     }
 }
 
