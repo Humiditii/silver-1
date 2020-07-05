@@ -13,8 +13,8 @@ class Home extends Component {
             <div align='center' style={{marginRight: '10px', marginLeft: '10px'}} >
                 <h5>Welcome to <i style={{color: 'indigo'}} >SILVER-1</i> App</h5>
                 <div style={{fontSize: '20px', minHeight:'25vh', marginBottom: '60px'}} >
-                   <p>This application helps to monitor goods appropriately. <i class="material-icons small">shopping_cart</i></p><i class="large material-icons">insert_chart</i>
-                   <p>Human error is inevitable in huge transactions, though computers may not be  <i><b>100% perfect sometimes <i class="material-icons tiny">cloud_done</i></b></i>, however it is still the best solution to save humans from uneccessary stress <i class="material-icons small">sentiment_very_satisfied</i> .</p> <p> Read through the Features and enjoy <i class="material-icons small">add</i></p> <p style={{font: '10px'}} > Version 1.0.0  <i class="material-icons small">thumb_up</i></p>
+                   <p>This application helps to monitor goods appropriately. <i className="material-icons small">shopping_cart</i></p><i className="large material-icons">insert_chart</i>
+                   <p>Human error is inevitable in huge transactions, though computers may not be  <i><b>100% perfect sometimes <i className="material-icons tiny">cloud_done</i></b></i>, however it is still the best solution to save humans from uneccessary stress <i className="material-icons small">sentiment_very_satisfied</i> .</p> <p> Read through the Features and enjoy <i className="material-icons small">add</i></p> <p style={{font: '10px'}} > Version 1.0.0  <i className="material-icons small">thumb_up</i></p>
                 </div>
 
                 <div style={{fontSize: '17px', minHeight:'25vh'}} >
