@@ -50,7 +50,7 @@ class AddProduct extends Component {
                     <h5>Add Product</h5>
                 </div>
                 <div align='center' style={{color: 'green'}}>
-                {this.props.successMessage? <h5><i class="small material-icons">done_all</i>{this.props.successMessage}</h5> : null }
+                {this.props.successMessage? <h5><i className="small material-icons">done_all</i>{this.props.successMessage}</h5> : null }
                    
                 </div>
                 <form className="col s12" onSubmit={this.onSubmitHandler} >

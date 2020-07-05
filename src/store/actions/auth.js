@@ -28,9 +28,10 @@ export const signin_success = (token, authMsg) => {
     }
 }
 
-export const signup_success = () => {
+export const signup_success = (msg) => {
     return {
-        type: actionTypes.SIGNUP_SUCCESS
+        type: actionTypes.SIGNUP_SUCCESS,
+        authMsg: msg
     }
 }
 
@@ -68,7 +69,8 @@ export const signin = (businessName, password) => {
             dispatch(signin_success(response.data.token, response.data.message))
 
         }).catch(err => {
-            dispatch(signin_fail(err.response.data.message))
+            const error = err.response ? err.response.data.message : err.message;
+            dispatch(signin_fail(error))
         })
     }
 }
@@ -92,7 +94,7 @@ export const signup = (businessName, email, password) => {
         const endpoint = '/auth/signup';
 
         axios.post(endpoint, body, config).then( response => {
-            dispatch(signup_success())
+            dispatch(signup_success(response.data.message))
         }).catch( err => {
             dispatch(signup_fail(err))
         })

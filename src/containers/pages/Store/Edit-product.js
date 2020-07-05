@@ -50,7 +50,7 @@ class EditProduct extends Component {
                     <h5>Edit Product</h5>
                 </div>
                 <div align='center' style={{font: '15px',color: 'green'}}>
-                {this.props.updateMessage? <h5><i class="small material-icons">done_all</i>{this.props.updateMessage}</h5> : null }
+                {this.props.updateMessage? <h5><i className="small material-icons">done_all</i>{this.props.updateMessage}</h5> : null }
                    
                 </div>
                 <div align='center' style={{font: '15px',color: 'red'}}>

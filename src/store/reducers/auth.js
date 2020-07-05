@@ -46,7 +46,9 @@ const signup_fail = (state, action) => {
 const signup_success = (state, action) => {
     return  {
         ...state,
-        loading: false
+        authMsg: action.authMsg,
+        loading: false,
+        
     }
 }
 
