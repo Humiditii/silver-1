@@ -42,7 +42,7 @@ export const get_sales = (token, startDate, endDate) => {
         const endpoint = `/sale/sales/${startDate}/${endDate}`;
 
         axios.get(endpoint, config).then( result => {
-            console.log(result)
+            //console.log(result)
             dispatch(get_sales_success([...result.data.data]))
         }).catch(err => {
             dispatch(get_sales_failed(err.response.data.message))

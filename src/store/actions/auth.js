@@ -1,6 +1,14 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-instance';
 
+export const clearMessage = (actionClear) => {
+    return dispatch => {
+        setTimeout( () => {
+            dispatch(actionClear)
+        }, 4 * 1000 )
+    }
+}
+
 export const auth_init = () => {
     return {
         type: actionTypes.INIT_AUTH_START
@@ -95,6 +103,7 @@ export const signup = (businessName, email, password) => {
 
         axios.post(endpoint, body, config).then( response => {
             dispatch(signup_success(response.data.message))
+            
         }).catch( err => {
             dispatch(signup_fail(err))
         })

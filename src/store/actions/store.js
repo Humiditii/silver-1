@@ -153,7 +153,7 @@ export const product_edit = (token,productId, quantity, price, name) => {
         const endpoint = `/product/edit-product/${productId}`;
 
         axios.patch(endpoint, body, config).then(result=> {
-            console.log(result);                                                       
+           // console.log(result);                                                       
             dispatch(product_edit_success(result.data.message))
             dispatch ( clearMessage(product_edit_success(null)) )
         }).catch(err => {
@@ -197,7 +197,7 @@ export const deleteProduct = (token, productId) => {
         const endpoint = `/product/delete/${productId}`;
 
         axios.delete(endpoint,config).then( result => {
-            console.log(result)
+            //console.log(result)
             dispatch( delete_success(result.data.message) )
             dispatch( clearMessage(delete_success(null)) )
         }).catch( err => {

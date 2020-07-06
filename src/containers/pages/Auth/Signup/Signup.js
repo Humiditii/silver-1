@@ -50,7 +50,7 @@ class Signup extends Component {
                    <h5> <b><u>Signup As a New User</u> </b></h5>
                 </div>
                 <div align='center' style={{font: '17px', color: 'green'}} >
-                       {this.props.success?  <p> <i className="small material-icons">done_all</i>{this.props.authMsg}</p> : null }
+                      {this.props.authMsg? <p> <i className="small material-icons">done_all</i>{this.props.authMsg}</p> : null } 
                     </div>
                 <h5 align='center' style={{color: 'red', fontSize: '19px'}} >{this.props.error}</h5>
                 <h5 align='center' style={{color: 'red', fontSize: '19px'}} >{this.props.mismatch}</h5>
