@@ -23,8 +23,8 @@ class Navbar extends Component  {
 
         if( this.props.token){
             navConfigs = {
-                links: ['/', '/view-products', 'add-product', '/sales', '/new-sale', '/logout'],
-                name: ['Home', 'Store', 'Add Product', 'Sales', 'Sell Now', 'Logout' ]
+                links: ['/', '/view-products', 'add-product', '/sales', '/new-sale', '/details', '/logout'],
+                name: ['Home', 'Store', 'Add Product', 'Sales', 'Sell Now', 'Product Details' ,'Logout' ]
             }
         }
 

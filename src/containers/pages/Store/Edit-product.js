@@ -17,15 +17,16 @@ class EditProduct extends Component {
     }
 
     state = {
-        quantity: this.props.editParams.quantity, 
-        price: this.props.editParams.price
+        quantity: 0, 
+        price: this.props.editParams.price,
+        name: this.props.editParams.name
     }
 
     onSubmitHandler = (event) => {
         event.preventDefault()
         //token, productId, quantity, price
-        const {quantity, price} = this.state;
-        this.props.onEdit(this.props.token, this.props.editParams.productId,quantity, price)
+        const {quantity, price, name} = this.state;
+        this.props.onEdit(this.props.token, this.props.editParams.productId,quantity, price, name)
         // this.props.onAddProduct(this.props.token,productName,price,quantity)
     }
 
@@ -39,10 +40,10 @@ class EditProduct extends Component {
     }
     render(){
         const config = {
-            name: [ 'Quantity', 'Price'],
-            type: [ 'number', 'number'],
-            icon: ['shopping_basket', 'money'],
-            stateItem: ['quantity', 'price']
+            name: [ 'Quantity', 'Price', 'Name'],
+            type: [ 'number', 'number', 'text'],
+            icon: ['shopping_basket', 'money', 'description'],
+            stateItem: ['quantity', 'price', 'name']
         }
         let form = (
             <div style={{marginTop: '40px'}} >
@@ -57,9 +58,10 @@ class EditProduct extends Component {
                     <h5>{this.props.error}</h5>
                 </div>
                 <form className="col s12" onSubmit={this.onSubmitHandler} >
-                            <div align='center' style={{fontSize: '16px', marginTop: '40px', color: 'green'}} >
-                                <p> <i>Quantity</i>: {this.state.quantity}</p>
+                            <div align='center' style={{fontSize: '16px', marginTop: '40px', color: 'white'}} >
+                                <p> <i>Quantity</i>: Add {this.state.quantity} more</p>
                                 <p><i>Price</i>: {this.state.price}</p>
+                                <p><i>Product Name</i>: {this.state.name}</p>
                             </div>
                             
                             {config.name.map( (item, index) => (
@@ -106,7 +108,7 @@ const mapDispatchToProps = dispatch => {
 
     return {
         onAutoSignin: () => { dispatch(checkAuthState()) },
-        onEdit: (token, productId, quantity, price) => { dispatch( product_edit(token, productId, quantity, price) ) }
+        onEdit: (token, productId, quantity, price, name) => { dispatch( product_edit(token, productId, quantity, price, name) ) }
     }
 }
 

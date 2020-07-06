@@ -59,7 +59,7 @@ class NewSales extends Component {
                         <h5>Sell Products</h5>
                     </div>
                     <div align='center' style={{font: '17px', color: 'green'}} >
-                       {this.props.success?  <p> <i class="small material-icons">done_all</i>{this.props.success}</p> : null }
+                       {this.props.success?  <p> <i className="small material-icons">done_all</i>{this.props.success}</p> : null }
                     </div>
                     <div>
                         <form className="col s12" onSubmit={this.onSubmitHandler}>

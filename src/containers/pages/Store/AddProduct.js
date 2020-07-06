@@ -19,14 +19,15 @@ class AddProduct extends Component {
     state = {
         productName: null,
         quantity: null, 
-        price: null
+        price: null,
+        cost: null
     }
 
 
     onSubmitHandler = (event) => {
         event.preventDefault()
-        const {productName, quantity, price} = this.state;
-        this.props.onAddProduct(this.props.token,productName,price,quantity)
+        const {productName, quantity, price, cost} = this.state;
+        this.props.onAddProduct(this.props.token,productName,price,quantity, cost)
     }
 
 
@@ -39,10 +40,10 @@ class AddProduct extends Component {
     }
     render(){
         const config = {
-            name: ['Product Name', 'Quantity', 'Price'],
-            type: ['text',  'number', 'number'],
-            icon: ['description', 'shopping_basket', 'money'],
-            stateItem: ['productName', 'quantity', 'price']
+            name: ['Product Name', 'Quantity', 'Price', 'Cost'],
+            type: ['text',  'number', 'number', 'number'],
+            icon: ['description', 'shopping_basket', 'money', 'money'],
+            stateItem: ['productName', 'quantity', 'price', 'cost']
         }
         let form = (
             <div style={{marginTop: '40px'}} >
@@ -99,7 +100,7 @@ const mapDispatchToProps = dispatch => {
 
     return {
         onAutoSignin: () => { dispatch(checkAuthState()) },
-        onAddProduct: (token, name, price, quantity) => {dispatch (add_product(token, name, price, quantity)) }
+        onAddProduct: (token, name, price, quantity, cost) => {dispatch (add_product(token, name, price, quantity, cost)) }
     }
 }
 

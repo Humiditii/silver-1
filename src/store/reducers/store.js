@@ -4,12 +4,14 @@ const initialState = {
     error: false,
     adding: false,
     details: [],
+    deleteMsg:null,
     successMessage: null,
     updateMessage: null,
     editParams: {
         quantity: null,
         price: null,
-        productId: null
+        productId: null,
+        name: null
     }
 }
 
@@ -68,7 +70,8 @@ const get_edit_params = (state, action) => {
         editParams: {
             quantity: action.quantity,
             price: action.price,
-            productId: action.productId
+            productId: action.productId,
+            name: action.name
         }
     }
 }
@@ -88,7 +91,8 @@ const product_edit_success = (state, action) => {
         editParams: {
             quantity: null,
             price: null,
-            productId: null
+            productId: null,
+            name: null
         }
     }
 }
@@ -97,6 +101,21 @@ const product_edit_failed = (state, action) => {
     return {
         ...state,
         error: action.error
+    }
+}
+
+const delete_init = (state, action) => {
+    return {
+        ...state,
+        adding: true
+    }
+}
+
+const delete_success = (state, action) => {
+    return {
+        ...state, 
+        deleteMsg: action.deleteMsg,
+        adding: false
     }
 }
 
@@ -112,6 +131,8 @@ const reducer = (state=initialState, action) => {
         case actionTypes.INIT_PRODUCT_EDIT: return init_product_edit(state, action);
         case actionTypes.PRODUCT_EDIT_FAILED: return product_edit_failed(state, action);
         case actionTypes.PRODUCT_EDIT_SUCCESS: return product_edit_success(state, action)
+        case actionTypes.DELETE_INIT: return delete_init(state, action);
+        case actionTypes.DELETE_SUCCESS: return delete_success(state, action);
         default:
             return state;
     }
