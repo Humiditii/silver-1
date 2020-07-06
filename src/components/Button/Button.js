@@ -7,7 +7,7 @@ const button = props => {
     const btnColour = props.btncolour;
     btnStyles[0] = btnStyles[0] + btnColour + ' ' + props.floatBtn ;
     let button = (
-            <button type={props.action} className={btnStyles[0]} data-target={props.dataTarget} >
+            <button onClick={props.buttonClick} type={props.action} className={btnStyles[0]} data-target={props.dataTarget} >
                 <i className={btnStyles[1]}>{props.iconname}</i>{props.btnname}
             </button>
     );

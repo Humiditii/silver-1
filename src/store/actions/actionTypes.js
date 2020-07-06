@@ -27,3 +27,6 @@ export const GET_PRODUCT_LIST_FAILED = 'GET_PRODUCT_LIST_FAILED';
 export const INIT_SALE ='INIT_SALE';
 export const SALE_SUCCESS = 'SALE_SUCCESS';
 export const SALE_FAILED = 'SALE_FAILED';
+export const DELETE_INIT = 'DELETE_INIT';
+export const DELETE_SUCCESS = 'DELETE_SUCCESS';
+export const DELETE_FAILED = 'DELETE_FAILED';

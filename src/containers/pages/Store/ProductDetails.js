@@ -3,16 +3,13 @@ import Aux from '../../../hoc/Auxillary';
 import Button from '../../../components/Button/Button';
 import {connect} from 'react-redux';
 import {checkAuthState} from '../../../store/actions/auth';
-import {store_details, get_edit_params, deleteProduct} from '../../../store/actions/store';
+import {store_details} from '../../../store/actions/store';
 import { Redirect } from 'react-router-dom';
 import Preloader from '../../../components/Preloader/Preloader';
 
 
-class ViewProducts extends Component {
+class ProductDetails extends Component {
 
-    state = {
-        reload: false
-    }
 
     componentDidMount(){
         this.props.onAutoSignIn()
@@ -24,33 +21,10 @@ class ViewProducts extends Component {
         
     }
 
-    inputHandler = (event, id, quantity, price, name) => {
-        event.preventDefault();
-        this.props.onGotoEdit(quantity, price, name, id)
-
-        //console.log(id, quantity, price, name);
-    }
-
-
-    deleteHandler = (event, id) => {
-        event.preventDefault();
-        this.props.onDelete(this.props.token, id)
-        this.setState({reload: true});
-
-    }
-
-    // onClickHandler = (event) => {
-    //     event.preventDefault();
-    //     alert('I was clicked')
-    // }
 
     render(){
         if(!this.props.token){
             return <Redirect to='/login' />
-        }
-
-        if(this.state.reload){
-            return <Redirect to ='/view-products' />
         }
 
         let amount = 0;
@@ -58,18 +32,14 @@ class ViewProducts extends Component {
 
         if(this.props.details.length > 0){
 
-            amount = this.props.details.map( item => item.totalPrice).reduce((a,b) => a +b , 0 )
-            productCount = this.props.details.map( item => item.quantity).reduce((a,b) => a +b , 0 )
-        }
-    
-        if (this.props.editId){
-            return <Redirect to='/edit-product' />
+            amount = this.props.details.map( item => item.cost * item.quantity ).reduce((a,b) => a +b , 0 )
+            productCount = this.props.details.map( item => item.quantity).reduce((a,b) => a + b , 0 )
         }
 
         let viewProductBody = (
             <div style={{fontSize:'15px'}} >
                     <div align='center' >
-                        <h5>List Of Products</h5>
+                        <h5>Products Cost</h5>
                     </div>
                     <div>
                         <table className='centered highlight '>
@@ -77,10 +47,8 @@ class ViewProducts extends Component {
                                 <tr>
                                     <th>Product Name</th>
                                     <th>Qty</th>
-                                    <th>S.Price</th>
+                                    <th>Cost Price</th>
                                     <th>Total Price</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
                                 </tr>
                             </thead>
 
@@ -92,10 +60,8 @@ class ViewProducts extends Component {
                                         <tr>
                                         <td>{item.name}</td>
                                         <td>{item.quantity}</td>
-                                        <td>₦{item.price}</td>
-                                        <td>₦{item.totalPrice}</td>
-                                        <td onClick={(event) =>  this.inputHandler(event, item._id, item.quantity, item.price, item.name) } ><Button  floatBtn=' btn-floating' btncolour='indigo' btnname='Edit'  iconname='edit'  /></td>
-                                        <td onClick={(event) =>  this.deleteHandler(event, item._id)} ><Button floatBtn=' btn-floating' btncolour='red' btnname='Edit'  iconname='delete'  /></td>
+                                        <td>₦{item.cost}</td>
+                                        <td>₦{item.cost * item.quantity}</td>
                                     </tr>
                                    </Aux> 
                                 ) ) : null}
@@ -109,7 +75,7 @@ class ViewProducts extends Component {
                     <h5 align='center' style={{fontSize: '19px', paddingTop: '10px'}}> Item Count : {productCount} </h5>
 
                     <div align='center' style={{marginTop: '30px', marginBottom: '30px'}}>
-                        <Button btncolour='indigo' btnname='Add Product' actionType='link' iconname='shop' whereto='/add-product' />
+                        <Button btncolour='indigo' btnname='View Store' actionType='link' iconname='shop' whereto='/view-products' />
                     </div>
 
                     <div align='center' style={{marginTop: '30px',paddingBottom: '30px' }} >
@@ -134,20 +100,15 @@ class ViewProducts extends Component {
 const mapStateToProps = state => {
     return {
         token: state.auth.token,
-        details: state.cart.details,
-        error: state.cart.error,
-        adding: state.cart.adding,
-        editId: state.cart.editParams.productId
+        details: state.cart.details
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         onAutoSignIn: () => { dispatch(checkAuthState()) },
-        onMount: (token) => { dispatch(store_details(token)) },
-        onGotoEdit: (quantity, price, name,productId) => { dispatch( get_edit_params(quantity, price, name, productId) ) },
-        onDelete: (token, productId) => { dispatch( deleteProduct(token, productId) ) }
+        onMount: (token) => { dispatch(store_details(token)) }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ViewProducts);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);

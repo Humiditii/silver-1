@@ -10,6 +10,7 @@ import EditProduct from './containers/pages/Store/Edit-product';
 import Logout from './containers/pages/Auth/Logout/Logout';
 import NewSales from './containers/pages/Sales/NewSales';
 import ViewSales from './containers/pages/Sales/ViewSales';
+import ProductDetails from './containers/pages/Store/ProductDetails';
 import './App.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
               <Route path='/add-product' component={AddProduct} />
               <Route path='/view-products' component={ViewProducts}  />
               <Route path='/edit-product' component={EditProduct} />
+              <Route path='/details' component={ProductDetails} />
               <Route path='/logout' component={Logout} />
               <Route path='/new-sale' component={NewSales} />
               <Route path='/sales' component={ViewSales} />

@@ -42,7 +42,7 @@ export const get_sales = (token, startDate, endDate) => {
         const endpoint = `/sale/sales/${startDate}/${endDate}`;
 
         axios.get(endpoint, config).then( result => {
-            console.log(result)
+            //console.log(result)
             dispatch(get_sales_success([...result.data.data]))
         }).catch(err => {
             dispatch(get_sales_failed(err.response.data.message))
@@ -113,6 +113,22 @@ export const Sale_failed = (error) => {
     }
 }
 
+// export const clearMessage = () => {
+//     return dispatch => {
+//         setTimeout( ()=> {
+//             dispatch( sale_success(null))
+//         }, 2 * 1000 )
+//     }
+// }
+
+export const clearMessage = (actionClear) => {
+    return dispatch => {
+        setTimeout( () => {
+            dispatch(actionClear)
+        }, 2 * 1000 )
+    }
+}
+
 export const sell = (product, productId, quantity, token) => {
     return dispatch => {
         dispatch( init_sale() )
@@ -134,6 +150,7 @@ export const sell = (product, productId, quantity, token) => {
 
         axios.post(endpoint, body, config).then( result => {
             dispatch( sale_success(result.data.message) )
+            dispatch( clearMessage( sale_success() ) )
         }).catch( err=> {
             dispatch( Sale_failed(err.response.data.message) )
         })
