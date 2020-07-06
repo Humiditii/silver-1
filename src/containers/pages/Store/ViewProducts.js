@@ -10,9 +10,9 @@ import Preloader from '../../../components/Preloader/Preloader';
 
 class ViewProducts extends Component {
 
-    state = {
-        reload: false
-    }
+    // state = {
+    //     reload: false
+    // }
 
     componentDidMount(){
         this.props.onAutoSignIn()
@@ -35,7 +35,7 @@ class ViewProducts extends Component {
     deleteHandler = (event, id) => {
         event.preventDefault();
         this.props.onDelete(this.props.token, id)
-        this.setState({reload: true});
+        //this.setState({reload: true});
 
     }
 
@@ -49,9 +49,9 @@ class ViewProducts extends Component {
             return <Redirect to='/login' />
         }
 
-        if(this.state.reload){
-            return <Redirect to ='/view-products' />
-        }
+        // if(this.state.reload){
+        //     return <Redirect to ='/view-products' />
+        // }
 
         let amount = 0;
         let productCount = 0
