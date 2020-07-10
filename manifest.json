@@ -1,6 +1,6 @@
 {
-  "short_name": "Silver-1 App",
-  "name": "Stock Managenment...",
+  "short_name": "Silver-1",
+  "name": "Stock Managenment automation",
   "icons": [
     {
       "src": "favicon.ico",
@@ -19,7 +19,7 @@
     }
   ],
   "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "display": "fullscreen",
+  "theme_color": "#ffffff",
+  "background_color": "indigo"
 }
