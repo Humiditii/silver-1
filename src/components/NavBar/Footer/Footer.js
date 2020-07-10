@@ -3,7 +3,7 @@ import Aux from '../../../hoc/Auxillary';
 
 
 class Footer extends Component {
-
+   
     render(){
         return (
             <Aux>
@@ -12,7 +12,9 @@ class Footer extends Component {
                     <div className="footer-copyright">
                         <div className="container" align='center'>
 
-                        Developed by Sebago <i className="tiny material-icons">copyright</i> {new Date().getFullYear()} Copyright
+                        <p>  Copyright  <i className="tiny material-icons">copyright</i> {new Date().getFullYear()} Developed by Babatunde A.O  </p>
+                       Contact via mail <i className="tiny material-icons">forward</i> <a href='mailto: humiditii45@gmail.com' ><i className="tiny material-icons">mail</i></a> <br/>
+                       <i className="tiny material-icons">star</i><i className="tiny material-icons">star</i><i className="tiny material-icons">star</i>
                         
                         </div>
                     </div>
