@@ -40,10 +40,10 @@ class AddProduct extends Component {
     }
     render(){
         const config = {
-            name: ['Product Name', 'Quantity', 'Price', 'Cost'],
+            name: ['Product Name', 'Quantity', 'Cost Price', 'Selling Price'],
             type: ['text',  'number', 'number', 'number'],
             icon: ['description', 'shopping_basket', 'money', 'money'],
-            stateItem: ['productName', 'quantity', 'price', 'cost']
+            stateItem: ['productName', 'quantity', 'cost', 'price']
         }
         let form = (
             <div style={{marginTop: '40px'}} >

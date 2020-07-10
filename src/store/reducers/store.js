@@ -11,7 +11,8 @@ const initialState = {
         quantity: null,
         price: null,
         productId: null,
-        name: null
+        name: null,
+        cost: null
     }
 }
 
@@ -70,6 +71,7 @@ const get_edit_params = (state, action) => {
         editParams: {
             quantity: action.quantity,
             price: action.price,
+            cost: action.cost,
             productId: action.productId,
             name: action.name
         }
@@ -92,7 +94,8 @@ const product_edit_success = (state, action) => {
             quantity: null,
             price: null,
             productId: null,
-            name: null
+            name: null,
+            cost: null
         }
     }
 }

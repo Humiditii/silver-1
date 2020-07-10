@@ -67,7 +67,8 @@ export const store_details = (token) => {
             dispatch(store_details_success([...result.data.data]))
         }).catch( err => {
            // console.log(err.response.data.message)
-            dispatch(store_details_failed(err.response.data.message))
+            const error = err.response ? err.response.data.message : err.message;
+            dispatch(store_details_failed(error))
         })
     }
 }
@@ -103,11 +104,12 @@ export const add_product = (token, name, price, quantity, cost) => {
     }
 }
 
-export const get_edit_params = (quantity, price, name, productId) => {
+export const get_edit_params = (quantity, price,cost, name, productId) => {
     return {
         type: actionTypes.GET_EDIT_PARAMS,
         quantity: quantity,
         price: price,
+        cost: cost,
         productId: productId,
         name: name
     }
@@ -133,14 +135,15 @@ export const product_edit_failed = (error) => {
     }
 }
 
-export const product_edit = (token,productId, quantity, price, name) => {
+export const product_edit = (token,productId, quantity, price, cost, name) => {
     return dispatch => {
         dispatch(init_product_edit())
 
         const body = {
             quantity: quantity,
             price: price,
-            productName: name
+            productName: name,
+            cost: cost
         }
 
         const config = {

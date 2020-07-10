@@ -24,9 +24,9 @@ class ViewProducts extends Component {
         
     }
 
-    inputHandler = (event, id, quantity, price, name) => {
+    inputHandler = (event, id, quantity, price, cost, name) => {
         event.preventDefault();
-        this.props.onGotoEdit(quantity, price, name, id)
+        this.props.onGotoEdit(quantity, price, cost, name, id)
 
         //console.log(id, quantity, price, name);
     }
@@ -35,6 +35,8 @@ class ViewProducts extends Component {
     deleteHandler = (event, id) => {
         event.preventDefault();
         this.props.onDelete(this.props.token, id)
+        this.props.onMount(this.props.token)
+
         //this.setState({reload: true});
 
     }
@@ -94,7 +96,7 @@ class ViewProducts extends Component {
                                         <td>{item.quantity}</td>
                                         <td>₦{item.price}</td>
                                         <td>₦{item.totalPrice}</td>
-                                        <td onClick={(event) =>  this.inputHandler(event, item._id, item.quantity, item.price, item.name) } ><Button  floatBtn=' btn-floating' btncolour='indigo' btnname='Edit'  iconname='edit'  /></td>
+                                        <td onClick={(event) =>  this.inputHandler(event, item._id, item.quantity, item.price,item.cost,item.name) } ><Button  floatBtn=' btn-floating' btncolour='indigo' btnname='Edit'  iconname='edit'  /></td>
                                         <td onClick={(event) =>  this.deleteHandler(event, item._id)} ><Button floatBtn=' btn-floating' btncolour='red' btnname='Edit'  iconname='delete'  /></td>
                                     </tr>
                                    </Aux> 
@@ -145,7 +147,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onAutoSignIn: () => { dispatch(checkAuthState()) },
         onMount: (token) => { dispatch(store_details(token)) },
-        onGotoEdit: (quantity, price, name,productId) => { dispatch( get_edit_params(quantity, price, name, productId) ) },
+        onGotoEdit: (quantity, price, cost, name,productId) => { dispatch( get_edit_params(quantity, price, cost, name, productId) ) },
         onDelete: (token, productId) => { dispatch( deleteProduct(token, productId) ) }
     }
 }

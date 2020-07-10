@@ -19,14 +19,15 @@ class EditProduct extends Component {
     state = {
         quantity: 0, 
         price: this.props.editParams.price,
-        name: this.props.editParams.name
+        name: this.props.editParams.name,
+        cost: this.props.editParams.cost
     }
 
     onSubmitHandler = (event) => {
         event.preventDefault()
         //token, productId, quantity, price
-        const {quantity, price, name} = this.state;
-        this.props.onEdit(this.props.token, this.props.editParams.productId,quantity, price, name)
+        const {quantity, price, name, cost } = this.state;
+        this.props.onEdit(this.props.token, this.props.editParams.productId,quantity, price, cost, name)
         // this.props.onAddProduct(this.props.token,productName,price,quantity)
     }
 
@@ -40,10 +41,10 @@ class EditProduct extends Component {
     }
     render(){
         const config = {
-            name: [ 'Quantity', 'Price', 'Name'],
-            type: [ 'number', 'number', 'text'],
-            icon: ['shopping_basket', 'money', 'description'],
-            stateItem: ['quantity', 'price', 'name']
+            name: [ 'Quantity', 'Selling Price','Cost Price','Product Name'],
+            type: [ 'number', 'number', 'number', 'text'],
+            icon: ['shopping_basket', 'money', 'money', 'description'],
+            stateItem: ['quantity', 'price', 'cost', 'name']
         }
         let form = (
             <div style={{marginTop: '40px'}} >
@@ -108,7 +109,7 @@ const mapDispatchToProps = dispatch => {
 
     return {
         onAutoSignin: () => { dispatch(checkAuthState()) },
-        onEdit: (token, productId, quantity, price, name) => { dispatch( product_edit(token, productId, quantity, price, name) ) }
+        onEdit: (token, productId, quantity, price, cost, name) => { dispatch( product_edit(token, productId, quantity, price, cost, name) ) }
     }
 }
 
