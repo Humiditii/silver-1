@@ -203,6 +203,7 @@ export const deleteProduct = (token, productId) => {
             //console.log(result)
             dispatch( delete_success(result.data.message) )
             dispatch( clearMessage(delete_success(null)) )
+            
         }).catch( err => {
             const error = err.response ? err.response.data.message : err.message;
             dispatch (delete_failed(error))

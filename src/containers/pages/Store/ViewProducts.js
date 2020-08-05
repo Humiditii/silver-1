@@ -24,6 +24,10 @@ class ViewProducts extends Component {
         
     }
 
+    componentDidUpdate(){
+        this.props.onMount(this.props.token)
+    }
+
     inputHandler = (event, id, quantity, price, cost, name) => {
         event.preventDefault();
         this.props.onGotoEdit(quantity, price, cost, name, id)
