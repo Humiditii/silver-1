@@ -24,9 +24,9 @@ class ViewProducts extends Component {
         
     }
 
-    componentDidUpdate(){
-        this.props.onMount(this.props.token)
-    }
+    // componentDidUpdate(){
+    //     this.props.onMount(this.props.token)
+    // }
 
     inputHandler = (event, id, quantity, price, cost, name) => {
         event.preventDefault();
