@@ -39,7 +39,7 @@ class ViewProducts extends Component {
     deleteHandler = (event, id) => {
         event.preventDefault();
         this.props.onDelete(this.props.token, id)
-        this.props.onMount(this.props.token)
+        //this.props.onMount(this.props.token)
 
         //this.setState({reload: true});
 
